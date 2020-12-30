@@ -349,18 +349,18 @@ namespace ModernFlyouts.Core.Interop
 
             HwndSourceParameters param = new()
             {
-                WindowStyle = 0x10000000 | 0x40000000,
+                WindowStyle = (int)(WindowStyles.WS_VISIBLE | WindowStyles.WS_CHILD | WindowStyles.WS_CLIPCHILDREN),
                 ParentWindow = hWnd,
-                UsesPerPixelOpacity = true
+                UsesPerPixelTransparency = true,
             };
 
             hwndSource = new(param)
             {
+                SizeToContent = SizeToContent.WidthAndHeight,
                 RootVisual = this
             };
 
             hwndSource.CompositionTarget.BackgroundColor = Colors.Transparent;
-            hwndSource.SizeToContent = SizeToContent.WidthAndHeight;
             hwndSource.ContentRendered += HwndSource_ContentRendered;
 
             UpdateWindow(hWnd);
